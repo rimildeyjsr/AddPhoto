@@ -8,18 +8,31 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    // MARK: - view did load
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // MARK: - outlets
+    
+    @IBOutlet weak var imageView: UIImageView!
+    
+    // MARK: - interactions
+    
+    @IBAction func tapCameraButton(_ sender: UIBarButtonItem) {
+        let imagepicker = UIImagePickerController()
+        present(imagepicker, animated: true, completion: nil)
+        imagepicker.delegate = self
     }
-
+    
+    // MARK: - UIImageControllerDelegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        dismiss(animated: true, completion: nil)
+    }
 
 }
 
